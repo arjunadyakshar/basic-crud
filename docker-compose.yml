@@ -1,6 +1,21 @@
 version: '3.8'
 
 services:
+  app:
+    build: .
+    container_name: spring-crud-app
+    depends_on:
+      - postgres
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/mydb
+      - SPRING_DATASOURCE_USERNAME=myuser
+      - SPRING_DATASOURCE_PASSWORD=mypassword
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+    ports:
+      - "8080:8080"
+    networks:
+      - spring-postgres
+
   postgres:
     image: postgres:16
     container_name: postgres-db
@@ -13,6 +28,12 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    networks:
+      - spring-postgres
+
+networks:
+  spring-postgres:
+    driver: bridge
 
 volumes:
   postgres_data:
