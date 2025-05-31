@@ -11,6 +11,7 @@ import java.util.List;
 @Getter
 @Setter
 @SuperBuilder
+@NoArgsConstructor
 public class School extends BaseEntity {
 
     private String name;
