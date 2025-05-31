@@ -1,0 +1,28 @@
+### Create a new school
+POST http://localhost:8080/api/schools
+Content-Type: application/json
+
+{
+  "name": "Green Valley School",
+  "address": "123 Main St",
+  "phoneNumber": "1234567890"
+}
+
+### Get all schools
+GET http://localhost:8080/api/schools
+
+### Get a school by ID
+GET http://localhost:8080/api/schools/1
+
+### Update a school
+PUT http://localhost:8080/api/schools/1
+Content-Type: application/json
+
+{
+  "name": "Green Valley School Updated",
+  "address": "123 Main St",
+  "phoneNumber": "0987654321"
+}
+
+### Delete a school
+DELETE http://localhost:8080/api/schools/1

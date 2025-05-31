@@ -2,6 +2,7 @@ package com.adyakshar.crud.service;
 
 import com.adyakshar.crud.data.model.Teacher;
 import com.adyakshar.crud.data.repository.TeacherRepository;
+import com.adyakshar.crud.exception.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,7 +22,7 @@ public class TeacherService {
 
     public Teacher getTeacherById(Long id) {
         return teacherRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Teacher not found with id: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Teacher not found with id: " + id));
     }
 
     public List<Teacher> getAllTeachers() {
@@ -36,6 +37,9 @@ public class TeacherService {
     }
 
     public void deleteTeacher(Long id) {
+        if (!teacherRepository.existsById(id)) {
+            throw new ResourceNotFoundException("Teacher not found with id: " + id);
+        }
         teacherRepository.deleteById(id);
     }
 }

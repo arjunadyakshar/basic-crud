@@ -1,12 +1,12 @@
 package com.adyakshar.crud.web.api;
 
-import com.adyakshar.crud.data.model.Teacher;
+import com.adyakshar.crud.web.dto.TeacherDTO;
 import java.util.List;
 
 public interface TeacherApi {
-    Teacher createTeacher(Teacher teacher);
-    Teacher getTeacherById(Long id);
-    List<Teacher> getAllTeachers();
-    Teacher updateTeacher(Long id, Teacher teacher);
+    TeacherDTO createTeacher(TeacherDTO teacherDTO);
+    TeacherDTO getTeacherById(Long id);
+    List<TeacherDTO> getAllTeachers();
+    TeacherDTO updateTeacher(Long id, TeacherDTO teacherDTO);
     void deleteTeacher(Long id);
 }

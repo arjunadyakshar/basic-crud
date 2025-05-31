@@ -2,6 +2,7 @@ package com.adyakshar.crud.service;
 
 import com.adyakshar.crud.data.model.Parent;
 import com.adyakshar.crud.data.repository.ParentRepository;
+import com.adyakshar.crud.exception.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,7 +22,7 @@ public class ParentService {
 
     public Parent getParentById(Long id) {
         return parentRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Parent not found with id: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Parent not found with id: " + id));
     }
 
     public List<Parent> getAllParents() {
@@ -36,6 +37,9 @@ public class ParentService {
     }
 
     public void deleteParent(Long id) {
+        if (!parentRepository.existsById(id)) {
+            throw new ResourceNotFoundException("Parent not found with id: " + id);
+        }
         parentRepository.deleteById(id);
     }
 }

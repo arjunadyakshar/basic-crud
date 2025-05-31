@@ -3,6 +3,8 @@ package com.adyakshar.crud.web.controller;
 import com.adyakshar.crud.data.model.Teacher;
 import com.adyakshar.crud.web.api.TeacherApi;
 import com.adyakshar.crud.service.TeacherService;
+import com.adyakshar.crud.web.dto.TeacherDTO;
+import com.adyakshar.crud.web.mapper.TeacherMapper;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,29 +14,38 @@ import java.util.List;
 public class TeacherController implements TeacherApi {
 
     private final TeacherService teacherService;
+    private final TeacherMapper teacherMapper;
 
-    public TeacherController(TeacherService teacherService) {
+    public TeacherController(TeacherService teacherService, TeacherMapper teacherMapper) {
         this.teacherService = teacherService;
+        this.teacherMapper = teacherMapper;
     }
 
     @PostMapping
-    public Teacher createTeacher(@RequestBody Teacher teacher) {
-        return teacherService.createTeacher(teacher);
+    public TeacherDTO createTeacher(@RequestBody TeacherDTO teacherDTO) {
+        Teacher teacher = teacherMapper.toEntity(teacherDTO);
+        Teacher createdTeacher = teacherService.createTeacher(teacher);
+        return teacherMapper.toDto(createdTeacher);
     }
 
     @GetMapping("/{id}")
-    public Teacher getTeacherById(@PathVariable Long id) {
-        return teacherService.getTeacherById(id);
+    public TeacherDTO getTeacherById(@PathVariable Long id) {
+        Teacher teacher = teacherService.getTeacherById(id);
+        return teacherMapper.toDto(teacher);
     }
 
     @GetMapping
-    public List<Teacher> getAllTeachers() {
-        return teacherService.getAllTeachers();
+    public List<TeacherDTO> getAllTeachers() {
+        List<Teacher> teachers = teacherService.getAllTeachers();
+        return teacherMapper.toDtoList(teachers);
     }
 
     @PutMapping("/{id}")
-    public Teacher updateTeacher(@PathVariable Long id, @RequestBody Teacher teacher) {
-        return teacherService.updateTeacher(id, teacher);
+    public TeacherDTO updateTeacher(@PathVariable Long id, @RequestBody TeacherDTO teacherDTO) {
+        Teacher teacher = teacherService.getTeacherById(id);
+        teacher = teacherMapper.updateEntity(teacherDTO, teacher);
+        Teacher updatedTeacher = teacherService.updateTeacher(id, teacher);
+        return teacherMapper.toDto(updatedTeacher);
     }
 
     @DeleteMapping("/{id}")

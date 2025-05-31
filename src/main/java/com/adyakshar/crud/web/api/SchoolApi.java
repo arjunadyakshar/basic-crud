@@ -1,12 +1,12 @@
 package com.adyakshar.crud.web.api;
 
-import com.adyakshar.crud.data.model.School;
+import com.adyakshar.crud.web.dto.SchoolDTO;
 import java.util.List;
 
 public interface SchoolApi {
-    School createSchool(School school);
-    School getSchoolById(Long id);
-    List<School> getAllSchools();
-    School updateSchool(Long id, School school);
+    SchoolDTO createSchool(SchoolDTO schoolDTO);
+    SchoolDTO getSchoolById(Long id);
+    List<SchoolDTO> getAllSchools();
+    SchoolDTO updateSchool(Long id, SchoolDTO schoolDTO);
     void deleteSchool(Long id);
 }

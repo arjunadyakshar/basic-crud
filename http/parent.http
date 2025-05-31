@@ -1,0 +1,28 @@
+### Create a new parent
+POST http://localhost:8080/api/parents
+Content-Type: application/json
+
+{
+  "name": "Robert Smith",
+  "phoneNumber": "5551112222",
+  "email": "robert.smith@example.com"
+}
+
+### Get all parents
+GET http://localhost:8080/api/parents
+
+### Get a parent by ID
+GET http://localhost:8080/api/parents/1
+
+### Update a parent
+PUT http://localhost:8080/api/parents/1
+Content-Type: application/json
+
+{
+  "name": "Robert Smith Updated",
+  "phoneNumber": "5553334444",
+  "email": "robert.smith.updated@example.com"
+}
+
+### Delete a parent
+DELETE http://localhost:8080/api/parents/1

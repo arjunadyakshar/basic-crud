@@ -1,0 +1,28 @@
+### Create a new teacher
+POST http://localhost:8080/api/teachers
+Content-Type: application/json
+
+{
+  "name": "John Doe",
+  "subject": "Mathematics",
+  "schoolId": 1
+}
+
+### Get all teachers
+GET http://localhost:8080/api/teachers
+
+### Get a teacher by ID
+GET http://localhost:8080/api/teachers/1
+
+### Update a teacher
+PUT http://localhost:8080/api/teachers/1
+Content-Type: application/json
+
+{
+  "name": "John Doe Updated",
+  "subject": "Physics",
+  "schoolId": 1
+}
+
+### Delete a teacher
+DELETE http://localhost:8080/api/teachers/2

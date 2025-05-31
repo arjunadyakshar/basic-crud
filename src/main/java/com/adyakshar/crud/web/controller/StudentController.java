@@ -3,6 +3,8 @@ package com.adyakshar.crud.web.controller;
 import com.adyakshar.crud.data.model.Student;
 import com.adyakshar.crud.web.api.StudentApi;
 import com.adyakshar.crud.service.StudentService;
+import com.adyakshar.crud.web.dto.StudentDTO;
+import com.adyakshar.crud.web.mapper.StudentMapper;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,29 +14,38 @@ import java.util.List;
 public class StudentController implements StudentApi {
 
     private final StudentService studentService;
+    private final StudentMapper studentMapper;
 
-    public StudentController(StudentService studentService) {
+    public StudentController(StudentService studentService, StudentMapper studentMapper) {
         this.studentService = studentService;
+        this.studentMapper = studentMapper;
     }
 
     @PostMapping
-    public Student createStudent(@RequestBody Student student) {
-        return studentService.createStudent(student);
+    public StudentDTO createStudent(@RequestBody StudentDTO studentDTO) {
+        Student student = studentMapper.toEntity(studentDTO);
+        Student createdStudent = studentService.createStudent(student);
+        return studentMapper.toDto(createdStudent);
     }
 
     @GetMapping("/{id}")
-    public Student getStudentById(@PathVariable Long id) {
-        return studentService.getStudentById(id);
+    public StudentDTO getStudentById(@PathVariable Long id) {
+        Student student = studentService.getStudentById(id);
+        return studentMapper.toDto(student);
     }
 
     @GetMapping
-    public List<Student> getAllStudents() {
-        return studentService.getAllStudents();
+    public List<StudentDTO> getAllStudents() {
+        List<Student> students = studentService.getAllStudents();
+        return studentMapper.toDtoList(students);
     }
 
     @PutMapping("/{id}")
-    public Student updateStudent(@PathVariable Long id, @RequestBody Student student) {
-        return studentService.updateStudent(id, student);
+    public StudentDTO updateStudent(@PathVariable Long id, @RequestBody StudentDTO studentDTO) {
+        Student student = studentService.getStudentById(id);
+        student = studentMapper.updateEntity(studentDTO, student);
+        Student updatedStudent = studentService.updateStudent(id, student);
+        return studentMapper.toDto(updatedStudent);
     }
 
     @DeleteMapping("/{id}")

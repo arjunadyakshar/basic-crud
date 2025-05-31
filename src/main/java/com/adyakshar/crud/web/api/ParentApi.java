@@ -1,12 +1,12 @@
 package com.adyakshar.crud.web.api;
 
-import com.adyakshar.crud.data.model.Parent;
+import com.adyakshar.crud.web.dto.ParentDTO;
 import java.util.List;
 
 public interface ParentApi {
-    Parent createParent(Parent parent);
-    Parent getParentById(Long id);
-    List<Parent> getAllParents();
-    Parent updateParent(Long id, Parent parent);
+    ParentDTO createParent(ParentDTO parentDTO);
+    ParentDTO getParentById(Long id);
+    List<ParentDTO> getAllParents();
+    ParentDTO updateParent(Long id, ParentDTO parentDTO);
     void deleteParent(Long id);
 }
